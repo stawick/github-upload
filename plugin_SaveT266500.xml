@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?eclipse version="3.4"?>
+<plugin>
+   <extension-point 
+   		id="com.ibm.sport.rtc.process.operationParticipants.attributeValueProviders" 
+   		name="SPoRT Attribute Value Providers" 
+   		schema="schema/attributeValueProviders.exsd"/>
+   <extension
+         point="com.ibm.team.repository.common.linkTypes">
+      <linkType
+            constrained="true"
+            id="com.ibm.sport.rtc.repository.common.linkTypes.sysroutelink"
+            internal="false">
+        <source>
+            <endpoint
+                  displayName="Sysrouted From APAR"
+                  id="sysroutedFrom"
+                  multiplicity="0..1">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </source>
+         <target>
+            <endpoint
+                  displayName="Sysrouted To APAR(s)"
+                  id="sysroutedTo"
+                  multiplicity="0..n">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </target>            
+      </linkType>
+      <linkType
+            constrained="true"
+            id="com.ibm.sport.rtc.repository.common.linkTypes.aparsubscribelink"
+            internal="false">
+        <source>
+            <endpoint
+                  displayName="Subscribed by PMR(s)"
+                  id="subscribedByPMR"
+                  multiplicity="0..n">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </source>
+         <target>
+            <endpoint
+                  displayName="Subscribes to APAR(s)"
+                  id="subscribesToAPAR"
+                  multiplicity="0..n">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </target>            
+      </linkType>
+      <linkType
+            constrained="false"
+            id="com.ibm.sport.rtc.repository.common.linkTypes.aparAssociationLink"
+            internal="false">
+         <source>
+            <endpoint
+                  displayName="SPoRT Work Item"
+                  id="sportWorkItem"
+                  multiplicity="0..1">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </source>
+         <target>
+            <endpoint
+                  displayName="SPoRT Associated Work Item(s)"
+                  id="sportAssociatedWorkItems"
+                  multiplicity="0..n">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </target>
+      </linkType>
+      <linkType
+            constrained="false"
+            id="com.ibm.sport.rtc.repository.common.linkTypes.sportPtfsLink"
+            internal="false">
+         <source>
+            <endpoint
+                  displayName="Requesting APAR"
+                  id="sportParentAPARForPTFLink"
+                  multiplicity="0..1">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </source>
+         <target>
+            <endpoint
+                  displayName="PTF(s)"
+                  id="sportAssociatedPTFs"
+                  multiplicity="0..n">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </target>
+      </linkType>
+      <linkType
+            constrained="false"
+            id="com.ibm.sport.rtc.repository.common.linkTypes.sportFixedAparsLink"
+            internal="false">
+         <source>
+            <endpoint
+                  displayName="Fixed by PTF(s)"
+                  id="ptfForFixedAPARsLink"
+                  multiplicity="0..n">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </source>
+         <target>
+            <endpoint
+                  displayName="APAR(s) Fixed"
+                  id="aparsForFixedAPARsLink"
+                  multiplicity="0..n">
+               <itemReferenceType
+                     itemTypeName="WorkItem"
+                     packageURI="com.ibm.team.workitem">
+               </itemReferenceType>
+            </endpoint>
+         </target>
+      </linkType>
+   </extension>
+   <extension
+         point="com.ibm.team.workitem.common.attributeValueProviders">
+      <valueSetProvider
+            class="com.ibm.sport.rtc.common.ComponentBrowseValueSetUtils"
+            id="com.ibm.sport.rtc.common.ComponentBrowseValueSetUtils"
+            name="SPoRT Component Browse Value Set Provider">
+	     <attributeType id="smallString"/>
+	     <attributeType id="mediumString"/>
+	     <attributeType id="string"/>
+	     <attributeType id="stringList"/>
+      </valueSetProvider>
+      <validator
+            class="com.ibm.sport.rtc.common.SPoRTRTCAttributeValidatorExtension"
+            id="com.ibm.sport.rtc.common.SPoRTRTCAttributeValidatorExtension"
+            name="SPoRT Common RTC Attribute Validator Extension">
+	     <attributeType id="smallString"/>
+	     <attributeType id="mediumString"/>
+	     <attributeType id="string"/>
+	     <attributeType id="stringList"/>
+      </validator>
+      <valueSetProvider
+            class="com.ibm.sport.rtc.common.RTC51615L6Q000ValueSetUtils"
+            id="com.ibm.sport.rtc.common.RTC51615L6Q000ValueSetUtils"
+            name="Test for multi-choice for string list Value Set Provider">
+	     <attributeType id="smallString"/>
+	     <attributeType id="mediumString"/>
+	     <attributeType id="string"/>
+	     <attributeType id="stringList"/>
+      </valueSetProvider>
+   </extension>
+   <extension
+         point="com.ibm.team.workitem.common.attributeValueProviders">
+      <valueSetProvider
+            class="com.ibm.sport.rtc.common.PSPKeywordComponentMapValueSetUtils"
+            id="com.ibm.sport.rtc.common.PSPKeywordComponentMapValueSetUtils"
+            name="SPoRT PSP Keyword Component Map Value Set Provider">
+	     <attributeType id="smallString"/>
+	     <attributeType id="mediumString"/>
+	     <attributeType id="string"/>
+      </valueSetProvider>
+   </extension>
+
+</plugin>
